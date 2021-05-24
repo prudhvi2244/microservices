@@ -1,0 +1,40 @@
+package com.example.demo.controller;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.client.RestTemplate;
+
+import com.example.demo.entity.Cart;
+import com.example.demo.entity.Order;
+
+@RestController
+@RequestMapping(value = "/flipkart")
+public class ShoppingController {
+
+	@Autowired
+	private RestTemplate rtemplate;
+
+	private static final String URL = "http://localhost:9001/order/placeOrder";
+
+	/*
+	 * http://localhost:8080/flipkart/shop
+	 */
+
+	@PostMapping(value = "/shop")
+	public ResponseEntity<String> shop(@RequestBody Cart cart) {
+		Order order = new Order();
+		order.setOrder_name(cart.getProduct_name());
+		order.setQuantity(cart.getQuantity());
+		order.setAmount(cart.getAmount());
+
+		rtemplate.postForObject(URL, cart, Object.class);
+		String msg = "oooh ,Payment Done ! ,Dear ,Raj,Order With ID :Place Successfully";
+		return new ResponseEntity<String>(msg, HttpStatus.CREATED);
+	}
+
+}

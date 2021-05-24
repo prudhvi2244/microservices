@@ -1,0 +1,20 @@
+package com.example.demo.service;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestTemplate;
+
+import com.example.demo.common.TransactionRequest;
+import com.example.demo.common.TransactionResponse;
+@Service
+public class OrderServiceImpl implements IOrderService{
+
+	@Autowired
+	private RestTemplate rtemplate;
+	
+	@Override
+	public TransactionResponse placeOrder(TransactionRequest trequest) {
+		
+		return null;
+	}
+}
